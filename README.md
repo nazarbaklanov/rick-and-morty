@@ -15,7 +15,7 @@ There are 2 endpoints in the application:
  - gender |	string |	The gender of the character ('Female', 'Male', 'Genderless' or 'unknown').
  - image |	string | (url)	Link to the character's image. All images are 300x300px and most are medium shots or portraits since they are intended to be used as avatars.
   
-Detail information about characters you can watch by this [**Link**](https://rickandmortyapi.com/api/character)
+Detail information about characters you can see by this [**Link**](https://rickandmortyapi.com/api/character)
 
 Technologies used in project
 ----------------------------
