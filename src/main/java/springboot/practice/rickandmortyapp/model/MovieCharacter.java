@@ -1,4 +1,4 @@
-package springboot.practice.rickandmorrtyapp.model;
+package springboot.practice.rickandmortyapp.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

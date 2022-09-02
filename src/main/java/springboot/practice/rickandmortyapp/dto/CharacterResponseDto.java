@@ -1,8 +1,8 @@
-package springboot.practice.rickandmorrtyapp.dto;
+package springboot.practice.rickandmortyapp.dto;
 
 import lombok.Data;
-import springboot.practice.rickandmorrtyapp.model.Gender;
-import springboot.practice.rickandmorrtyapp.model.Status;
+import springboot.practice.rickandmortyapp.model.Gender;
+import springboot.practice.rickandmortyapp.model.Status;
 
 @Data
 public class CharacterResponseDto {

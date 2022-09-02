@@ -1,4 +1,4 @@
-package springboot.practice.rickandmorrtyapp.dto.mapper;
+package springboot.practice.rickandmortyapp.dto.mapper;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import springboot.practice.rickandmorrtyapp.dto.CharacterResponseDto;
-import springboot.practice.rickandmorrtyapp.dto.external.ApiCharacterDto;
-import springboot.practice.rickandmorrtyapp.model.Gender;
-import springboot.practice.rickandmorrtyapp.model.MovieCharacter;
-import springboot.practice.rickandmorrtyapp.model.Status;
+import springboot.practice.rickandmortyapp.dto.CharacterResponseDto;
+import springboot.practice.rickandmortyapp.dto.external.ApiCharacterDto;
+import springboot.practice.rickandmortyapp.model.Gender;
+import springboot.practice.rickandmortyapp.model.MovieCharacter;
+import springboot.practice.rickandmortyapp.model.Status;
 
 @ExtendWith(MockitoExtension.class)
 class MovieCharacterMapperTest {
@@ -20,7 +20,7 @@ class MovieCharacterMapperTest {
     private ApiCharacterDto mortyApiDto;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         morty = new MovieCharacter();
         morty.setId(1L);
         morty.setExternalId(1L);
@@ -42,7 +42,7 @@ class MovieCharacterMapperTest {
     }
 
     @Test
-    void toModel_Ok() {
+    public void toModel_Ok() {
         MovieCharacter actual = movieCharacterMapper.toModel(mortyApiDto);
         Assertions.assertEquals(1L, actual.getExternalId());
         Assertions.assertEquals("Morty Bug", actual.getName());
@@ -55,7 +55,7 @@ class MovieCharacterMapperTest {
     }
 
     @Test
-    void toResponseDto_Ok() {
+    public void toResponseDto_Ok() {
         CharacterResponseDto actual = movieCharacterMapper.toResponseDto(morty);
         Assertions.assertEquals(1L, actual.getId());
         Assertions.assertEquals(1L, actual.getExternalId());

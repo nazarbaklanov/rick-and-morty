@@ -1,7 +1,7 @@
-package springboot.practice.rickandmorrtyapp.service;
+package springboot.practice.rickandmortyapp.service;
 
 import java.util.List;
-import springboot.practice.rickandmorrtyapp.model.MovieCharacter;
+import springboot.practice.rickandmortyapp.model.MovieCharacter;
 
 public interface MovieCharacterService {
     void syncExternalCharacters();
