@@ -6,7 +6,7 @@ There are 2 endpoints in the application:
 - to get a list of all characters with a filter by part of the name;
 - to get one character by random id.
 
-Character schema: 🧱
+Character's schema: 🧱
 --------------------
  - id	|    int    |    The id of the character.
  - name | string |	The name of the character.
