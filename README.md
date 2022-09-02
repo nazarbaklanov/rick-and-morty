@@ -18,7 +18,7 @@ Character's schema: 🧱
   
 **Detail information about characters you can see by this** 👉 [**LINK**](https://rickandmortyapi.com/api/character)
 
-Technologies used in project 💻
+Technologies in project 💻
 ----------------------------
 - Spring Boot 2.7, Spring Web, Spring Jpa
 - DB PostgreSQL
