@@ -1,6 +1,7 @@
-package springboot.practice.rickandmorrtyapp.service;
+package springboot.practice.rickandmortyapp.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -8,30 +9,34 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import springboot.practice.rickandmorrtyapp.dto.external.ApiCharacterDto;
-import springboot.practice.rickandmorrtyapp.dto.external.ApiResponseDto;
-import springboot.practice.rickandmorrtyapp.dto.mapper.MovieCharacterMapper;
-import springboot.practice.rickandmorrtyapp.model.MovieCharacter;
-import springboot.practice.rickandmorrtyapp.repository.MovieCharacterRepository;
+import springboot.practice.rickandmortyapp.dto.external.ApiCharacterDto;
+import springboot.practice.rickandmortyapp.dto.external.ApiResponseDto;
+import springboot.practice.rickandmortyapp.dto.mapper.MovieCharacterMapper;
+import springboot.practice.rickandmortyapp.model.MovieCharacter;
+import springboot.practice.rickandmortyapp.repository.MovieCharacterRepository;
 
 @Log4j2
 @Service
 @RequiredArgsConstructor
 public class MovieCharacterServiceImpl implements MovieCharacterService {
-    private static final String CLIENTS_URL = "https://rickandmortyapi.com/api/character";
+    @Value("${client.link}")
+    private String clientUrl;
     private final HttpClient httpClient;
     private final MovieCharacterRepository movieCharacterRepository;
     private final MovieCharacterMapper movieCharacterMapper;
 
-    @Scheduled(cron = "0 0 8 * * *")
+    @PostConstruct
+    @Scheduled(cron = "0 0 8 * * ?")
     @Override
     public void syncExternalCharacters() {
         log.info("syncExternalCharacters method was invoked at " + LocalDateTime.now());
-        ApiResponseDto apiResponseDto = httpClient.get(CLIENTS_URL, ApiResponseDto.class);
+        ApiResponseDto apiResponseDto = httpClient.get(clientUrl, ApiResponseDto.class);
         saveDtosToDb(apiResponseDto);
 
         while (apiResponseDto.getInfo().getNext() != null) {
@@ -55,6 +60,11 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
     }
 
     void saveDtosToDb(ApiResponseDto apiResponseDto) {
+        List<MovieCharacter> charactersToSave = getListMovieCharactersToSave(apiResponseDto);
+        movieCharacterRepository.saveAll(charactersToSave);
+    }
+
+    public List<MovieCharacter> getListMovieCharactersToSave(ApiResponseDto apiResponseDto) {
         Map<Long, ApiCharacterDto> externalDtos = Arrays.stream(apiResponseDto.getResults())
                 .collect(Collectors.toMap(ApiCharacterDto::getId, Function.identity()));
         Set<Long> externalIds = externalDtos.keySet();
@@ -65,11 +75,17 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
                 .collect(Collectors.toMap(MovieCharacter::getExternalId, Function.identity()));
         Set<Long> existingIds = existingCharactersWithIds.keySet();
 
-        externalIds.removeAll(existingIds);
+        externalIds.retainAll(existingIds);
+        List<MovieCharacter> charactersToUpdate = existingCharacters.stream()
+                .map(ch -> movieCharacterMapper.updateCharacterToModel(ch, externalDtos.get(ch.getExternalId())))
+                .collect(Collectors.toList());
 
-        List<MovieCharacter> charactersToSve = externalIds.stream()
+        existingIds = existingCharactersWithIds.keySet();
+        externalIds.removeAll(existingIds);
+        List<MovieCharacter> charactersToSave = externalIds.stream()
                 .map(i -> movieCharacterMapper.toModel(externalDtos.get(i)))
                 .collect(Collectors.toList());
-        movieCharacterRepository.saveAll(charactersToSve);
+        charactersToSave.addAll(charactersToUpdate);
+        return charactersToSave;
     }
 }

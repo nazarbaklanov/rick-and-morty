@@ -1,4 +1,4 @@
-package springboot.practice.rickandmorrtyapp.controller;
+package springboot.practice.rickandmortyapp.controller;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import java.util.List;
@@ -13,10 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import springboot.practice.rickandmorrtyapp.model.Gender;
-import springboot.practice.rickandmorrtyapp.model.MovieCharacter;
-import springboot.practice.rickandmorrtyapp.model.Status;
-import springboot.practice.rickandmorrtyapp.service.MovieCharacterService;
+import springboot.practice.rickandmortyapp.model.Gender;
+import springboot.practice.rickandmortyapp.model.MovieCharacter;
+import springboot.practice.rickandmortyapp.model.Status;
+import springboot.practice.rickandmortyapp.service.MovieCharacterService;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -28,12 +28,12 @@ class MovieCharacterControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         RestAssuredMockMvc.mockMvc(mockMvc);
     }
 
     @Test
-    void getRandomCharacter_Ok() {
+    public void getRandomCharacter_Ok() {
         MovieCharacter characterMortySmith = new MovieCharacter();
         characterMortySmith.setId(2L);
         characterMortySmith.setExternalId(2L);
@@ -57,7 +57,7 @@ class MovieCharacterControllerTest {
     }
 
     @Test
-    void findAllByName_Ok() {
+    public void findAllByName_Ok() {
         final String nameParam = "Rick";
         MovieCharacter characterBlackRick = new MovieCharacter();
         characterBlackRick.setId(48L);

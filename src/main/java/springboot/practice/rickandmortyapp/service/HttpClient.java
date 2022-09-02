@@ -1,4 +1,4 @@
-package springboot.practice.rickandmorrtyapp.service;
+package springboot.practice.rickandmortyapp.service;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

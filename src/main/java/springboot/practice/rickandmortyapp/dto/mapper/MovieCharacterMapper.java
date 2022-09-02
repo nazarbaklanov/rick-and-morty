@@ -1,11 +1,12 @@
-package springboot.practice.rickandmorrtyapp.dto.mapper;
+package springboot.practice.rickandmortyapp.dto.mapper;
 
+import javax.persistence.GeneratedValue;
 import org.springframework.stereotype.Component;
-import springboot.practice.rickandmorrtyapp.dto.CharacterResponseDto;
-import springboot.practice.rickandmorrtyapp.dto.external.ApiCharacterDto;
-import springboot.practice.rickandmorrtyapp.model.Gender;
-import springboot.practice.rickandmorrtyapp.model.MovieCharacter;
-import springboot.practice.rickandmorrtyapp.model.Status;
+import springboot.practice.rickandmortyapp.dto.CharacterResponseDto;
+import springboot.practice.rickandmortyapp.dto.external.ApiCharacterDto;
+import springboot.practice.rickandmortyapp.model.Gender;
+import springboot.practice.rickandmortyapp.model.MovieCharacter;
+import springboot.practice.rickandmortyapp.model.Status;
 
 @Component
 public class MovieCharacterMapper {
@@ -33,5 +34,15 @@ public class MovieCharacterMapper {
         dto.setType(movieCharacter.getType());
         dto.setImage(movieCharacter.getImage());
         return dto;
+    }
+
+    public MovieCharacter updateCharacterToModel(MovieCharacter existing, ApiCharacterDto dto) {
+        existing.setName(dto.getName());
+        existing.setGender(Gender.valueOf(dto.getGender().toUpperCase()));
+        existing.setStatus(Status.valueOf(dto.getStatus().toUpperCase()));
+        existing.setSpecies(dto.getSpecies());
+        existing.setType(dto.getType());
+        existing.setImage(dto.getImage());
+        return existing;
     }
 }

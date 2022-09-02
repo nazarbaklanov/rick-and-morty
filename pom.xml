@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>springboot.practice</groupId>
-    <artifactId>rick-and-morrty-app</artifactId>
+    <artifactId>rick-and-morty-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>rick-and-morty</name>
     <description>rick-and-morty</description>

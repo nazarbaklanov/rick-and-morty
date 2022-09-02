@@ -1,4 +1,4 @@
-package springboot.practice.rickandmorrtyapp;
+package springboot.practice.rickandmortyapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

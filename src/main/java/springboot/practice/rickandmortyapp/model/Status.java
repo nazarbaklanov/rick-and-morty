@@ -1,4 +1,4 @@
-package springboot.practice.rickandmorrtyapp.model;
+package springboot.practice.rickandmortyapp.model;
 
 public enum Status {
     ALIVE("Alive"),

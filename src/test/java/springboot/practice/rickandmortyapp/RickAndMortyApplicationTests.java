@@ -1,4 +1,4 @@
-package springboot.practice.rickandmorrtyapp;
+package springboot.practice.rickandmortyapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,6 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 class RickAndMortyApplicationTests {
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
     }
 }
